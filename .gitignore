@@ -1,0 +1,12 @@
+# Data pack and assignment files (do not commit per instructions)
+ridgeline_data_pack*/
+*.zip
+Aeron-AI-Research-Engineer-Intern-AssignmentNew.pdf
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
