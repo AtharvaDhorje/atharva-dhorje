@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Network Health — Aeron Assignment</title>
+  <style>
+    @page { size: A4; margin: 14mm; }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #17202a; margin: 0 auto; max-width: 820px; line-height: 1.4; }
+    header { border-bottom: 3px solid #1f4e5f; padding-bottom: 10px; margin-bottom: 16px; }
+    h1 { margin: 0 0 4px; font-size: 26px; }
+    h2 { font-size: 15px; margin: 18px 0 6px; color: #1f4e5f; }
+    p { margin: 5px 0; font-size: 11pt; }
+    .meta { color: #53616b; font-size: 10pt; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 12px 0; }
+    .metric { border: 1px solid #ccd5d9; border-radius: 6px; padding: 10px; }
+    .metric strong { display: block; font-size: 20px; }
+    .metric span { color: #53616b; font-size: 9pt; }
+    .callout { border-left: 4px solid #1f4e5f; padding: 8px 12px; background: #f3f7f8; }
+    table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+    th, td { border: 1px solid #ccd5d9; padding: 6px; text-align: left; vertical-align: top; }
+    th { background: #eef3f4; }
+    footer { border-top: 1px solid #ccd5d9; margin-top: 18px; padding-top: 7px; color: #53616b; font-size: 9pt; }
+    .placeholder { color: #8b3f00; font-weight: bold; }
+    @media print { body { max-width: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Weather Network Health</h1>
+    <p class="meta">Aeron AI Research Engineer Intern Assignment · Reporting period: <span class="placeholder">[fill from data]</span></p>
+  </header>
+  <div class="callout">
+    <strong>Coordinator's decision</strong>
+    <p><span class="placeholder">[In 2–3 sentences: what data is suitable for the spring climate summary, what needs exclusion or correction, and the most important caveat.]</span></p>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8</strong><span>Stations expected in assignment</span></div>
+    <div class="metric"><strong class="placeholder">[N / %]</strong><span>Usable coverage (define calculation)</span></div>
+    <div class="metric"><strong class="placeholder">[N]</strong><span>Distinct issue intervals flagged</span></div>
+  </div>
+  <h2>1. Data suitability</h2>
+  <p><span class="placeholder">[Summarize coverage and material issues by station/channel using verified results. Distinguish missing data from invalid data.]</span></p>
+  <table>
+    <thead><tr><th>Station / channel</th><th>Evidence and time window</th><th>Recommendation</th></tr></thead>
+    <tbody><tr><td class="placeholder">[actual finding]</td><td class="placeholder">[actual dates and evidence]</td><td class="placeholder">[include / exclude / correct / investigate]</td></tr></tbody>
+  </table>
+  <h2>2. Technician visit — one hour</h2>
+  <div class="callout">
+    <p><strong>Recommended station: <span class="placeholder">[ID]</span></strong></p>
+    <p><span class="placeholder">[What to inspect first, the evidence motivating the visit, the suggested one-hour sequence, and why this station is a better choice than the runner-up.]</span></p>
+  </div>
+  <h2>3. Limitations and unresolved questions</h2>
+  <p><span class="placeholder">[State uncertain calls, metadata limits, suspected but unconfirmed faults, and checks that require a human.]</span></p>
+  <footer>Prepared from the supplied data pack. Do not publish private station data. Replace every highlighted placeholder with verified findings before submission.</footer>
+</body>
+</html>

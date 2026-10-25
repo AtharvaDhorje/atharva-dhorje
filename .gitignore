@@ -1,12 +1,40 @@
-# Data pack and assignment files (do not commit per instructions)
+# ---- Private assignment data (never commit) ----
 ridgeline_data_pack*/
+data_pack/
+private_data/
 *.zip
+*.7z
+*.tar.gz
+*.nmea
+# the assignment brief itself is not ours to publish
 Aeron-AI-Research-Engineer-Intern-AssignmentNew.pdf
 
-# Python artifacts
+# Original starter scaffold, kept locally; its files were copied to the repo root
+aeron-starter/
+
+# ---- Python artifacts ----
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ---- Environments and secrets ----
 .venv/
 venv/
 .env
+.env.*
+*.key
+secrets*
+
+# ---- Editors / OS / temp ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+tmp/
+scratch/
