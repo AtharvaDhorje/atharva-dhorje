@@ -5,7 +5,7 @@ Video: https://youtu.be/rLetZaVPhVQ
 
 Run Tests: python -m pytest -v test_checker.py 
 
-Run main: python checker.py "<path-to-data-folder>"
+Run main: python checker.py "path-to-data-folder"
 
 Run a Local Live Web Server: python -m http.server 8000 (access report at: http://localhost:8000/report.html)
 
