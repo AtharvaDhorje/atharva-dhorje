@@ -1,7 +1,13 @@
 Full Name: Atharva Dhorje
 Email: atharva14122002@gmail.com
+
 Video: https://youtu.be/rLetZaVPhVQ
-Run: python checker.py "<path-to-data-folder>"
+
+Run Tests: python -m pytest -v test_checker.py 
+
+Run main: python checker.py "<path-to-data-folder>"
+
+Run a Local Live Web Server: python -m http.server 8000 (access report at: http://localhost:8000/report.html)
 
 # Ridgeline Weather Station Network — Data Quality Checker & Health Assessment
 
