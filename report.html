@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network Health & Climate Summary Report — Aeron Assignment</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 14mm;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1a202c;
+      background: #ffffff;
+      margin: 0 auto;
+      max-width: 820px;
+      line-height: 1.38;
+      font-size: 9.5pt;
+    }
+    header {
+      border-bottom: 2.5px solid #1a4958;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-left h1 {
+      margin: 0 0 2px;
+      font-size: 20pt;
+      color: #0f2d37;
+      letter-spacing: -0.3px;
+    }
+    .header-left p {
+      margin: 0;
+      color: #4a5568;
+      font-size: 9pt;
+      font-weight: 500;
+    }
+    .header-badge {
+      background: #edf2f7;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 8pt;
+      color: #2d3748;
+      text-align: right;
+    }
+    .callout {
+      border-left: 4px solid #1a4958;
+      background: #f4f8fa;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 12px;
+    }
+    .callout strong {
+      color: #0f2d37;
+      font-size: 10pt;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .callout p {
+      margin: 0;
+      color: #2d3748;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .metric {
+      border: 1px solid #cbd5e0;
+      border-radius: 5px;
+      padding: 8px 10px;
+      background: #ffffff;
+      border-top: 3px solid #1a4958;
+    }
+    .metric span {
+      display: block;
+      color: #718096;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 2px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 14pt;
+      color: #0f2d37;
+      line-height: 1.1;
+    }
+    .metric small {
+      color: #4a5568;
+      font-size: 7.5pt;
+    }
+    h2 {
+      font-size: 11pt;
+      margin: 12px 0 6px;
+      color: #0f2d37;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-bottom: 10px;
+    }
+    th, td {
+      border: 1px solid #cbd5e0;
+      padding: 4.5px 6px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background: #edf2f7;
+      color: #2d3748;
+      font-weight: 600;
+    }
+    td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .tag {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .tag-good { background: #c6f6d5; color: #22543d; }
+    .tag-warn { background: #feebc8; color: #7b341e; }
+    .tag-bad { background: #fed7d7; color: #742a2a; }
+    .tag-fix { background: #bee3f8; color: #2a4365; }
+
+    .visit-card {
+      background: #fffaf0;
+      border: 1.5px solid #dd6b20;
+      border-radius: 5px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .visit-card h3 {
+      margin: 0 0 4px;
+      color: #9c4221;
+      font-size: 11pt;
+    }
+    .schedule {
+      display: grid;
+      grid-template-columns: 85px 1fr;
+      gap: 3px 8px;
+      font-size: 8.5pt;
+      margin-top: 6px;
+      background: #ffffff;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #fbd38d;
+    }
+    .schedule-time {
+      font-weight: 600;
+      color: #9c4221;
+    }
+    ul {
+      margin: 3px 0 6px 16px;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 2px;
+    }
+    footer {
+      border-top: 1px solid #e2e8f0;
+      margin-top: 10px;
+      padding-top: 4px;
+      font-size: 7.5pt;
+      color: #718096;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media print {
+      body {
+        max-width: none;
+        font-size: 9pt;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <h1>Weather Network Health Report</h1>
+      <p>Ridgeline Schools & Community Weather Stations · Spring Climate Assessment</p>
+    </div>
+    <div class="header-badge">
+      <strong>Reporting Window:</strong> 2025-03-01 to 2025-04-11 UTC (6 Weeks)<br>
+      <strong>Scope:</strong> 8 Stations · 48,384 Logger Intervals
+    </div>
+  </header>
+
+  <div class="callout">
+    <strong>Executive Decision for Network Coordinator</strong>
+    <p>
+      <strong>1. Climate Summary:</strong> <strong>98.7%</strong> of the network's measurement data is valid and trustworthy for the spring climate summary. Five hardware/system issues are fully resolved in software (S02 pressure offset, S05 GPS coordinates, S06 6-hour clock shift, S07 wind unit scale, S08 duplicate day). Four localized sensor faults require data exclusion: S03 temperature flatline/spikes, S04 blocked rain gauge, S04 daytime shield solar heating, and S05 4-day stuck humidity saturation. High wind events (up to 61 km/h) and heavy rain storms were cross-verified across stations as genuine extreme weather.<br>
+      <strong>2. Technician Priority:</strong> Send the volunteer technician to <strong>Station S03 (Valley Library)</strong> next week. S03 has an active, intermittent temperature sensor fault (multiple DS18B20 digital error codes and an 80-hour freeze) affecting core climate data, which can be diagnosed and repaired in one hour.
+    </p>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <span>Active Stations</span>
+      <strong>8 / 8</strong>
+      <small>All loggers reporting</small>
+    </div>
+    <div class="metric">
+      <span>Usable Coverage</span>
+      <strong>98.71%</strong>
+      <small>334,322 / 338,688 values</small>
+    </div>
+    <div class="metric">
+      <span>Auto-Corrected</span>
+      <strong>5,418</strong>
+      <small>1.60% (reproducible fixes)</small>
+    </div>
+    <div class="metric">
+      <span>Excluded Values</span>
+      <strong>4,366</strong>
+      <small>1.29% (confirmed faults)</small>
+    </div>
+  </div>
+
+  <h2>1. Station & Channel Data Usability Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Station ID & Location</th>
+        <th>Elev.</th>
+        <th class="num">Rec. Cov.</th>
+        <th class="num">Temp</th>
+        <th class="num">RH</th>
+        <th class="num">Pressure</th>
+        <th class="num">Wind</th>
+        <th class="num">Rain</th>
+        <th class="num">Sun</th>
+        <th>Overall Usability & Applied Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>S01</strong> Saddle Ridge Hut</td>
+        <td>2913m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-good">Fully Usable</span> High-altitude barometric baseline (+3.2 hPa offset kept). Real March 14 windstorm kept.</td>
+      </tr>
+      <tr>
+        <td><strong>S02</strong> North Mesa School</td>
+        <td>1623m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-fix">Corrected</span> Uncalibrated pressure board replacement (+6.7 hPa step on Mar 21) restored by offset subtraction.</td>
+      </tr>
+      <tr>
+        <td><strong>S03</strong> Valley Library</td>
+        <td>1523m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-bad">92.0%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-warn">Partial Excl</span> 485 temp values excluded: 4 digital sentinel spikes (-40°C/85°C) and 80-hour freeze (6.5°C). Priority visit.</td>
+      </tr>
+      <tr>
+        <td><strong>S04</strong> Foothills Garden</td>
+        <td>1763m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-bad">69.0%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-bad">75.1%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-warn">Partial Excl</span> Rain funnel blocked leaves/nest (Mar 23–Apr 2) excluded. Daytime temperature warm bias (+3.1°C) excluded.</td>
+      </tr>
+      <tr>
+        <td><strong>S05</strong> Eastside Rec Centre</td>
+        <td>1644m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-bad">91.7%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-fix">Corrected/Excl</span> Location corrected via GPS (20.5 km error in CSV). 84-hour stuck humidity saturation (Mar 7–11) excluded.</td>
+      </tr>
+      <tr>
+        <td><strong>S06</strong> South Hills Fire</td>
+        <td>1891m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td><span class="tag tag-fix">Corrected</span> Logger clock rebooted to Mountain Time after battery swap (Mar 24); shifted +6.0 h to UTC via GPS RMC time.</td>
+      </tr>
+      <tr>
+        <td><strong>S07</strong> Riverbend Farm</td>
+        <td>1525m</td>
+        <td class="num">100.0%</td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-fix">100%*</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-fix">Corrected</span> Anemometer swap on Mar 26 output m/s instead of km/h; multiplied by 3.6 to restore full wind series.</td>
+      </tr>
+      <tr>
+        <td><strong>S08</strong> Plains Grange Hall</td>
+        <td>1437m</td>
+        <td class="num">96.5%</td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td class="num"><span class="tag tag-good">100%</span></td>
+        <td><span class="tag tag-fix">Corrected/Gap</span> 35.7h gap (Mar 16–18) due to SIM expiry left as gap. Duplicate transmission on Apr 5 (144 rows) deduplicated.</td>
+      </tr>
+    </tbody>
+  </table>
+  <small>* Usability achieved after automated mathematical / timestamp correction backed by maintenance evidence and GPS verification.</small>
+
+  <h2>2. Recommended One-Hour Technician Visit: Station S03 (Valley Library)</h2>
+  <div class="visit-card">
+    <h3>Target: Station S03 — Temperature Sensor Bus Diagnostic & Probe Swap</h3>
+    <p>
+      <strong>Why S03 over S04:</strong> S04's rain gauge was already cleaned by volunteers on April 2, and S04's thermal bias stems from reflected solar radiation off a newly painted fence. In contrast, S03 has an <em>active, recurring electronic hardware failure</em> on temperature (the primary climate summary channel). S03 exhibited repeated digital bus error sentinels (-40.0°C and +85.0°C, typical of Dallas/Maxim DS18B20 CRC failures or power resets) on March 5, March 12, April 2, and April 8, plus an 80-hour complete sensor flatline (stuck at 6.5°C). The library site is fully accessible and can be permanently fixed within one hour.
+    </p>
+    <div class="schedule">
+      <div class="schedule-time">00 – 10 min</div>
+      <div><strong>Visual & Enclosure Inspection:</strong> Check logger box for moisture, insect ingress, and verify grounding. Inspect cable run to radiation shield.</div>
+      <div class="schedule-time">10 – 25 min</div>
+      <div><strong>Sensor & Wiring Diagnostic:</strong> Open radiation shield, inspect DS18B20 probe terminal connections, check 4.7kΩ pull-up resistor integrity, and test 1-wire bus voltage.</div>
+      <div class="schedule-time">25 – 45 min</div>
+      <div><strong>Sensor Replacement:</strong> Replace suspect temperature probe and pigtail with a calibrated spare from the parts kit. Secure cable with fresh weather-tight grommet.</div>
+      <div class="schedule-time">45 – 60 min</div>
+      <div><strong>Verification & Clock Check:</strong> Observe logger screen for 10 minutes to verify live temperature fluctuation, verify GPS NMEA fix, and log serial numbers in maintenance sheet.</div>
+    </div>
+  </div>
+
+  <h2>3. Key Uncertainties & Operational Limitations</h2>
+  <ul>
+    <li><strong>S04 Fence Albedo Heating:</strong> Repainting the post and fence bright white on March 15 caused daytime solar heating (+3.1°C median sunny bias, +4.1°C above 800 W/m²). This bias was excluded from the climate summary. A future volunteer should repaint the mounting post matte non-reflective grey or extend the shield mount 0.5 m away from the fence line.</li>
+    <li><strong>S01 High-Altitude Pressure Offset:</strong> Saddle Ridge Hut is at 2,913 m elevation. The +3.2 hPa offset against the barometric formula likely reflects local crest airflow dynamics or minor GPS elevation discrepancies. The data is genuine and kept.</li>
+    <li><strong>Uncorrected Microclimates:</strong> Widespread wind peaks (e.g. March 18–19 Chinook storm) reached 61.3 km/h at S06 and ~50 km/h across the valley. These were cross-verified and preserved as genuine climate extremes.</li>
+  </ul>
+
+  <footer>
+    <span>Generated by Aeron Data Quality Checker · Deterministic & Rule-Based (No ML Hallucinations)</span>
+    <span>Aeron Systems AI Research Engineer Intern Assignment</span>
+  </footer>
+
+</body>
+</html>
