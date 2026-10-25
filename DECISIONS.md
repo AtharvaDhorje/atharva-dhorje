@@ -51,7 +51,7 @@ To scale unattended monitoring across 500 stations without alert fatigue:
 
 ---
 
-## 5. By Hand: Solar Noon Calculation at S04 (20 March 2025)
+## 5. By Hand: Solar Noon Calculation at S04 
 
 ### Metadata & Inputs
 * Station S04: **Longitude:** $-105.1460^\circ$ ($105.1460^\circ\text{ W}$, west-negative convention).
