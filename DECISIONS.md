@@ -1,7 +1,7 @@
 # Engineering Decisions & Analysis
 
 **Author:** Atharva Dhorje  
-**Evaluation Scope:** 8 Stations, 6 Weeks (March 1 – April 11, 2025)
+
 
 ---
 
